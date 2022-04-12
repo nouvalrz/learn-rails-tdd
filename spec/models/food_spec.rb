@@ -54,6 +54,17 @@ RSpec.describe Food, type: :model do
     
   end
 
+  it 'is invalid with non numeric price' do
+    food = Food.new(
+      name: 'Nasi Uduk',
+      description: nil,
+      price: 'Rp. 15000'
+    )
+
+    food.valid?
+    expect(food.errors[:price]).to include("is not a number")
+  end
+
   describe 'self#by_letter' do
     it 'should return a sorted array of results that match' do
       food1 = Food.create(
